@@ -3,4 +3,5 @@ export default {
   slide2: require('../assets/slide2.png'),
   giaohang: require('../assets/giaohang.png'),
   mangdi: require('../assets/mangdi.png'),
+  sparkles: require('../assets/sparkles.png'),
 }
