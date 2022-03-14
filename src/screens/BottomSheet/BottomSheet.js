@@ -1,12 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import {
-  View,
-  Text,
-  Dimensions,
-  Image,
-  ScrollView,
-  TouchableOpacity,
-} from 'react-native'
+import { Dimensions, Image, Text, View } from 'react-native'
 import { Gesture, GestureDetector } from 'react-native-gesture-handler'
 import Animated, {
   Extrapolate,
@@ -16,20 +9,17 @@ import Animated, {
   withSpring,
 } from 'react-native-reanimated'
 import { UIButton } from '../../components'
-import { images, css } from '../../constants'
-import SpecialOffers from './SpecialOffers/SpecialOffers'
-import Icon from 'react-native-vector-icons/EvilIcons'
+import { css, images } from '../../constants'
+import HeaderBottomSheet from './HeaderBottomSheet/HeaderBottomSheet'
 import RemoteUpdates from './RemoteUpdates/RemoteUpdates'
+import SpecialOffers from './SpecialOffers/SpecialOffers'
 
 const { height: SCREEN_HIGHT } = Dimensions.get('window')
+
 const MAX_TRANSLATE_Y = -SCREEN_HIGHT + -SCREEN_HIGHT / 1.7
 const MIN_TRANSATE_Y = -SCREEN_HIGHT - 20
 // const MAX_TRANSLATE_Y = -SCREEN_HIGHT
 // const MIN_TRANSATE_Y = -SCREEN_HIGHT / 2.2
-const imgSlides = [
-  'https://file.hstatic.net/1000075078/file/des_2880x880_b88701fa49854f768afca43a019e2970.jpeg',
-  'https://file.hstatic.net/1000075078/file/home_banner_-_web_moi_desktop_7e17c9b7c9544165a8bd8962c66a3766.jpeg',
-]
 
 export default function BottomSheet() {
   const [menus, setMenus] = useState([
@@ -46,6 +36,8 @@ export default function BottomSheet() {
       isSelected: false,
     },
   ])
+
+  const [type, setType] = useState(0)
 
   const translationY = useSharedValue(0)
 
@@ -78,66 +70,10 @@ export default function BottomSheet() {
     }
   })
 
-  const [imgActive, setImgActive] = useState(0)
-  onchange = nativeEven => {
-    if (nativeEven) {
-      const slide = Math.ceil(
-        nativeEven.contentOffSet.x / nativeEven.layoutMeasurement.width,
-      )
-      if (imgActive != slide) {
-        setImgActive(slide)
-      }
-    }
-  }
-
   return (
     <GestureDetector gesture={gesture}>
       <Animated.View style={[css.bottomSheetContainer, rBottomSheetStyle]}>
-        <View style={css.line} />
-        <View style={css.frames}>
-          <TouchableOpacity
-            style={css.frames_box}
-            onPress={() => alert('giao hang')}>
-            <Image source={images.giaohang} style={{ width: 80, height: 80 }} />
-            <Text>Giao Hàng</Text>
-          </TouchableOpacity>
-          <View style={css.column} />
-          <TouchableOpacity
-            style={css.frames_box}
-            onPress={() => alert('mang di')}>
-            <Image source={images.mangdi} style={{ width: 80, height: 80 }} />
-            <Text>Mang Đi</Text>
-          </TouchableOpacity>
-        </View>
-        <View style={css.slide}>
-          <ScrollView
-            onScroll={({ nativeEven }) => onchange(nativeEven)}
-            showsVerticalScrollIndicator={false}
-            pagingEnabled
-            horizontal
-            style={css.slide}>
-            {imgSlides.map((imgSlide, index) => (
-              <Image
-                key={index}
-                source={{ uri: imgSlide }}
-                resizeMode="stretch"
-                style={css.imageSlide}
-              />
-            ))}
-          </ScrollView>
-          <View style={css.wrapLine}>
-            {imgSlides.map((imgSlide, index) => (
-              <View
-                key={imgSlide}
-                style={
-                  imgActive == index
-                    ? css.lineSlide
-                    : [css.lineSlide, css.lineSlideNo]
-                }
-              />
-            ))}
-          </View>
-        </View>
+        <HeaderBottomSheet />
         <View style={css.menu}>
           <View style={css.menu_title}>
             <Text style={[css.title, css.menu_text]}>Khám phá thêm</Text>
@@ -147,12 +83,13 @@ export default function BottomSheet() {
             {menus.map((menu, index) => (
               <UIButton
                 onPress={() => {
-                  let newMenus = menus.map(eachMenu => {
+                  let newMenus = menus.map((eachMenu, index) => {
                     return {
                       ...eachMenu,
                       isSelected: eachMenu.title == menu.title,
                     }
                   })
+                  setType(index)
                   setMenus(newMenus)
                 }}
                 key={index}
@@ -161,10 +98,16 @@ export default function BottomSheet() {
               />
             ))}
           </View>
-          <View style={{ flex: 1, marginVertical: 25 }}>
+
+          {type == 0 ? (
             <SpecialOffers />
-            {/* <RemoteUpdates /> */}
-          </View>
+          ) : type == 1 ? (
+            <RemoteUpdates />
+          ) : type == 2 ? (
+            <SpecialOffers />
+          ) : (
+            <SpecialOffers />
+          )}
         </View>
       </Animated.View>
     </GestureDetector>

@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { ImageBackground, Text, TouchableOpacity, View } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import Icon from 'react-native-vector-icons/AntDesign'
-import BottomSheet from './BottomSheet/BottomSheet'
 import { css } from '../constants'
+import BottomSheet from './BottomSheet/BottomSheet'
 
 const imageBackground = {
   uri: 'https://as1.ftcdn.net/v2/jpg/01/78/72/32/1000_F_178723243_eL6GKyCnduS2oc4dukStierACzF66ZPb.jpg',

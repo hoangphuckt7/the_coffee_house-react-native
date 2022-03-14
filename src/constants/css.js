@@ -85,10 +85,8 @@ const styles = StyleSheet.create({
     fontWeight: '500',
   },
   bottomSheetContainer: {
-    height: 'auto',
     backgroundColor: 'white',
     flex: 1,
-    width: '100%',
     borderRadius: 25,
     top: SCREEN_HIGHT,
     bottom: 0,
