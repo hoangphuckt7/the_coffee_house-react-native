@@ -89,7 +89,6 @@ const styles = StyleSheet.create({
     flex: 1,
     borderRadius: 25,
     top: SCREEN_HIGHT,
-    bottom: 0,
     paddingHorizontal: 20,
   },
   line: {

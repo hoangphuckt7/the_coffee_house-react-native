@@ -11,8 +11,7 @@ const imageBackground = {
 
 function Home() {
   return (
-    <GestureHandlerRootView
-      style={{ width: '100%', position: 'absolute', backgroundColor: 'red' }}>
+    <GestureHandlerRootView style={{ width: '100%', position: 'absolute' }}>
       <View style={css.container}>
         <View>
           <View style={css.boxAuth}>

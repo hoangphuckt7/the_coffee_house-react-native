@@ -49,7 +49,7 @@ export default function BottomSheet() {
     })
     .onUpdate(e => {
       translationY.value = e.translationY + context.value.y
-      // translationY.value = Math.max(translationY.value, MAX_TRANSLATE_Y)
+      translationY.value = Math.max(translationY.value, MAX_TRANSLATE_Y * 1.76)
       translationY.value = Math.min(translationY.value, MIN_TRANSATE_Y)
     })
 

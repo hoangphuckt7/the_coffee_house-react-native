@@ -1,5 +1,13 @@
 import React, { useState } from 'react'
-import { Image, ScrollView, Text, TouchableOpacity, View } from 'react-native'
+import {
+  Image,
+  // ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+  Animated,
+} from 'react-native'
+import { ScrollView } from 'react-native-gesture-handler'
 import { css, images } from '../../../constants'
 
 const imgSlides = [
@@ -41,7 +49,7 @@ export default function HeaderBottomSheet() {
         </TouchableOpacity>
       </View>
       <View style={css.slide}>
-        <ScrollView
+        <Animated.ScrollView
           onScroll={({ nativeEven }) => onchange(nativeEven)}
           showsVerticalScrollIndicator={true}
           contentContainerStyle={{ flexGrow: 1 }}
@@ -55,7 +63,7 @@ export default function HeaderBottomSheet() {
               style={css.imageSlide}
             />
           ))}
-        </ScrollView>
+        </Animated.ScrollView>
         <View style={css.wrapLine}>
           {imgSlides.map((imgSlide, index) => (
             <View
